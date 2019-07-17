@@ -1,29 +1,35 @@
 {
-  "name": "express-boilerplate",
+  "name": "things-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "test": "mocha --require test/setup.js",
+    "deploy": "git push heroku master",
     "dev": "nodemon src/server.js",
-    "predeploy": "npm audit",
-    "deploy": "git push heroku master"
+    "migrate-production": "postgrator --config postgrator-production-config.js",
+    "migrate": "postgrator --config postgrator-config.js",
+    "predeploy": "npm audit && npm run migrate-production",
+    "start": "node src/server.js",
+    "test": "mocha --require test/setup.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Al Zimmerman <auraelius@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
-    "morgan": "^1.9.1"
+    "knex": "^0.19.0",
+    "morgan": "^1.9.1",
+    "pg": "^7.11.0",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
+    "postgrator-cli": "^3.1.0",
     "supertest": "^4.0.2"
   }
 }
